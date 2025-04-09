@@ -73,7 +73,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
     
     .ellipse-red {background-color: red;}
@@ -225,6 +225,10 @@
         const curStage = stages[stage];
         const curPhase = curStage[stagePhase];
         curEllipse = ellipses[getRandomInt(3)];
+        curEllipse.querySelector(".ellipse-text").innerText = 
+        getRandomInt(256)+'.'+getRandomInt(256)+'.'+
+        getRandomInt(256)+'.'+getRandomInt(256)+':'+
+        (getRandomInt(65535)+1)
 
         curEllipse.style.display = 'block';
         setTimeout(ellipseHide, 900);
