@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+ <head>
+   <title>ВЗЛОМ!</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+        
+    }
+    
+    #game {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        height: 100%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        top: 0;
+        background-color: #c2ffd1;
+        border: 3px solid seagreen;
+
+        aspect-ratio: 9/16;
+    }
+
+    #tapper {
+        position: absolute;
+        background-color: rgba(180, 79, 79, 0.1);
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 2;
+    }
+    #stageChange {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.66);
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 1;
+
+        color: whitesmoke;
+        font-size: 3rem;
+    }
+    #stageChange div {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+    #gameTitle {height: 30%; }
+    #gameTip { height: 50%; }
+    #gameContinue { height: 20%;}
+
+    .ellipse {
+        display: none;
+        width: 60%;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: rebeccapurple;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .ellipse-text {
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2.5rem;
+    }
+    .ellipse-shown { display: block;}
+    
+    .ellipse-red {background-color: red;}
+    .ellipse-red .ellipse-text {color: darkred;}
+    .ellipse-green {background-color: green;}
+    .ellipse-green .ellipse-text {color: darkgreen;}
+    .ellipse-blue {background-color: blue;}
+    .ellipse-blue .ellipse-text {color: darkblue;}
+    .ellipse-black {background-color: black;}
+    .ellipse-black .ellipse-text {color: darkslategray;}
+    
+</style>
+</head>
+ <body>
+    <div id="tapper"></div>
+    <div id="game">
+        <div id="stageChange">
+            <div id="gameTitle">Взлом!</div>
+            <div id="gameTip">Нам нужно взломать сервак! Пробиваемся через фаервол! Тапай по экрану, когда видишь правило (круг)</div>
+            <div id="gameContinue">Готов? Тапни по экрану, чтобы начать тренировку</div>
+        </div>
+        <div id="ellipse" class="ellipse ellipse-red ellipse-shown">
+            <span class="ellipse-text">127.0.0.1:8000</span>
+        </div>
+    </div>
+ </body> 
+</html>
