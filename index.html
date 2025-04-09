@@ -75,7 +75,6 @@
         transform: translate(-50%, -50%);
         font-size: 2.5rem;
     }
-    .ellipse-shown { display: block;}
     
     .ellipse-red {background-color: red;}
     .ellipse-red .ellipse-text {color: darkred;}
@@ -83,8 +82,8 @@
     .ellipse-green .ellipse-text {color: darkgreen;}
     .ellipse-blue {background-color: blue;}
     .ellipse-blue .ellipse-text {color: darkblue;}
-    .ellipse-black {background-color: black;}
-    .ellipse-black .ellipse-text {color: darkslategray;}
+    .ellipse-yellow {background-color: yellow;}
+    .ellipse-yellow .ellipse-text {color: darkgoldenrod;}
     
 </style>
 </head>
@@ -96,7 +95,16 @@
             <div id="gameTip">Инструкция</div>
             <div id="gameTap">Тапни</div>
         </div>
-        <div id="ellipse" class="ellipse ellipse-red ellipse-shown">
+        <div id="ellipseRed" class="ellipse ellipse-red" style="display: none;">
+            <span class="ellipse-text">127.0.0.1:8000</span>
+        </div>
+        <div id="ellipseGreen" class="ellipse ellipse-green" style="display: none;">
+            <span class="ellipse-text">127.0.0.1:8000</span>
+        </div>
+        <div id="ellipseBlue" class="ellipse ellipse-blue" style="display: none;">
+            <span class="ellipse-text">127.0.0.1:8000</span>
+        </div>
+        <div id="ellipseYellow" class="ellipse ellipse-yellow" style="display: none;">
             <span class="ellipse-text">127.0.0.1:8000</span>
         </div>
     </div>
@@ -105,6 +113,15 @@
     var stage = 0;
     var stageStep = 0;
     var stagePhase = 0;
+    var curEllipse = null;
+
+    const ellipses = [
+        document.getElementById("ellipseRed"),
+        document.getElementById("ellipseGreen"),
+        document.getElementById("ellipseBlue"),
+        document.getElementById("ellipseYellow"),
+    ]
+
     const stages = [
         {
             isTip: true,
@@ -114,7 +131,7 @@
         {
             isTip: false,
             phases: [
-                {end: 8, rndStart: 750, rndEnd: 1250}
+                {end: 8, rndStart: 750, rndInterval: 500}
             ]
         },
         {
@@ -125,10 +142,10 @@
         {
             isTip: false,
             phases: [
-                {end: 28, rndStart: 400, rndEnd: 900},
-                {end: 64, rndStart: 900, rndEnd: 2250},
-                {end: 92, rndStart: 400, rndEnd: 900},
-                {end: 128, rndStart: 900, rndEnd: 2250},
+                {end: 28, rndStart: 400, rndInterval: 500},
+                {end: 64, rndStart: 900, rndInterval: 1350},
+                {end: 92, rndStart: 400, rndInterval: 500},
+                {end: 128, rndStart: 900, rndInterval: 1350},
             ]
         },
         {
@@ -139,40 +156,82 @@
         {
             isTip: false,
             phases: [
-                {end: 28, rndStart: 400, rndEnd: 900},
-                {end: 64, rndStart: 900, rndEnd: 2250},
-                {end: 92, rndStart: 400, rndEnd: 900},
-                {end: 128, rndStart: 900, rndEnd: 2250},
+                {end: 28, rndStart: 400, rndInterval: 500},
+                {end: 64, rndStart: 900, rndInterval: 1350},
+                {end: 92, rndStart: 400, rndInterval: 500},
+                {end: 128, rndStart: 900, rndInterval: 1350},
             ]
         }
     ]
+
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
+
+
     const gameInfo = document.getElementById("gameInfo");
     const gameTip = document.getElementById("gameTip");
     const gameTap = document.getElementById("gameTap");
 
     function tap() {
-        const curStage = stages[stage];
-        if (curStage.isTip) {
+        if (stages[stage].isTip) {
+            gameInfo.style.display = "none";
             stage += 1;
+            stagePhase = 0;
+            stageStep = 0;
+
+            const curStage = stages[stage];
+            const curPhase = curStage.phases[stagePhase];
+
+            console.log(stagePhase, curStage, curPhase);
+            
+            setTimeout(ellipseShow, getRandomInt(curPhase.rndInterval)+curPhase.rndStart);
+    
         } else {
 
         }
-        tackt();
+        //tackt();
     }
 
-    function tackt() {
-        const curStage = stages[stage];
-        if (curStage.isTip) {
-            gameInfo.style.display = "block";
-            gameTip.innerText = curStage.tip;
-            gameTap.innerText = curStage.tap;
-        } else {
-            gameInfo.style.display = "none";
+    function showInfo() {
+        gameInfo.style.display = "block";
+        gameTip.innerText = stages[stage].tip;
+        gameTap.innerText = stages[stage].tap;
+    }
+
+    function ellipseHide() {
+        curEllipse.style.display = 'none';
+        curEllipse = null;
+
+        stageStep += 1;
+        if (stageStep > stages[stage].phases[stagePhase].end) {
+            stagePhase += 1;
+            if (stagePhase+1 > stages[stage].phases.length) {
+                stage += 1;
+                stagePhase = 0;
+                stageStep = 0;
+                showInfo();
+                return;
+            }
         }
+        const curStage = stages[stage];
+        const curPhase = curStage.phases[stagePhase];
+        console.log(stagePhase, curStage, curPhase);
+        
+        setTimeout(ellipseShow, getRandomInt(curPhase.rndInterval)+curPhase.rndStart);
+    }
+
+    function ellipseShow() {
+        const curStage = stages[stage];
+        const curPhase = curStage[stagePhase];
+        curEllipse = ellipses[getRandomInt(3)];
+
+        curEllipse.style.display = 'block';
+        setTimeout(ellipseHide, 900);
     }
 
     document.getElementById("tapper").addEventListener('click', tap);
     //document.getElementById("tapper").addEventListener('touchstart', tap);
-    tackt();
+    showInfo();
 </script>
 </html>
