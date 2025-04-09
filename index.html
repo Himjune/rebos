@@ -52,9 +52,9 @@
         box-sizing: border-box;
         text-align: center;
     }
-    #gameTitle {height: 30%; }
+    #gameTitle {height: 20%; }
     #gameTip { height: 50%; }
-    #gameTap { height: 20%;}
+    #gameTap { height: 30%;}
 
     .ellipse {
         display: none;
@@ -216,7 +216,7 @@
         }
         const curStage = stages[stage];
         const curPhase = curStage.phases[stagePhase];
-        console.log(stagePhase, curStage, curPhase);
+        console.log(stageStep, stagePhase, curStage, curPhase);
         
         setTimeout(ellipseShow, getRandomInt(curPhase.rndInterval)+curPhase.rndStart);
     }
