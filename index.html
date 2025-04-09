@@ -35,7 +35,7 @@
         top: 0;
         z-index: 2;
     }
-    #stageChange {
+    #gameInfo {
         position: absolute;
         background-color: rgba(0, 0, 0, 0.66);
         width: 100%;
@@ -47,14 +47,14 @@
         color: whitesmoke;
         font-size: 3rem;
     }
-    #stageChange div {
+    #gameInfo div {
         width: 100%;
         box-sizing: border-box;
         text-align: center;
     }
     #gameTitle {height: 30%; }
     #gameTip { height: 50%; }
-    #gameContinue { height: 20%;}
+    #gameTap { height: 20%;}
 
     .ellipse {
         display: none;
@@ -91,10 +91,10 @@
  <body>
     <div id="tapper"></div>
     <div id="game">
-        <div id="stageChange">
+        <div id="gameInfo">
             <div id="gameTitle">Взлом!</div>
             <div id="gameTip">Инструкция</div>
-            <div id="gameContinue">Тапни</div>
+            <div id="gameTap">Тапни</div>
         </div>
         <div id="ellipse" class="ellipse ellipse-red ellipse-shown">
             <span class="ellipse-text">127.0.0.1:8000</span>
@@ -109,7 +109,7 @@
         {
             isTip: true,
             tip: "Нам нужно взломать сервак! Пробиваемся через фаервол! Тапай по экрану, когда видишь правило (круг)",
-            continue: "Готов? Тапни по экрану, чтобы начать тренировку"
+            tap: "Готов? Тапни по экрану, чтобы начать тренировку"
         },
         {
             isTip: false,
@@ -120,7 +120,7 @@
         {
             isTip: true,
             tip: "Так, всё! Начинаем взлом! Всё так же: тапай по экрану, когда видишь правило (круг)",
-            continue: "Готов? Тапни по экрану, чтобы начать сам взлом"
+            tap: "Готов? Тапни по экрану, чтобы начать сам взлом"
         },
         {
             isTip: false,
@@ -134,7 +134,7 @@
         {
             isTip: true,
             tip: "Черт, нас засекли! Теперь все красные правила ложные! Всё так же: тапай по экрану, когда видишь правило (круг), но только если он не красный! С красным ничего не делай!",
-            continue: "Готов? Тапни по экрану, чтобы продолжить взлом"
+            tap: "Готов? Тапни по экрану, чтобы продолжить взлом"
         },
         {
             isTip: false,
@@ -146,5 +146,33 @@
             ]
         }
     ]
+    const gameInfo = document.getElementById("gameInfo");
+    const gameTip = document.getElementById("gameTip");
+    const gameTap = document.getElementById("gameTap");
+
+    function tap() {
+        const curStage = stages[stage];
+        if (curStage.isTip) {
+            stage += 1;
+        } else {
+
+        }
+        tackt();
+    }
+
+    function tackt() {
+        const curStage = stages[stage];
+        if (curStage.isTip) {
+            gameInfo.style.display = "block";
+            gameTip.innerText = curStage.tip;
+            gameTap.innerText = curStage.tap;
+        } else {
+            gameInfo.style.display = "none";
+        }
+    }
+
+    document.getElementById("tapper").addEventListener('click', tap);
+    //document.getElementById("tapper").addEventListener('touchstart', tap);
+    tackt();
 </script>
 </html>
