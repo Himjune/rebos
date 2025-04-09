@@ -93,12 +93,58 @@
     <div id="game">
         <div id="stageChange">
             <div id="gameTitle">Взлом!</div>
-            <div id="gameTip">Нам нужно взломать сервак! Пробиваемся через фаервол! Тапай по экрану, когда видишь правило (круг)</div>
-            <div id="gameContinue">Готов? Тапни по экрану, чтобы начать тренировку</div>
+            <div id="gameTip">Инструкция</div>
+            <div id="gameContinue">Тапни</div>
         </div>
         <div id="ellipse" class="ellipse ellipse-red ellipse-shown">
             <span class="ellipse-text">127.0.0.1:8000</span>
         </div>
     </div>
  </body> 
+ <script>
+    var stage = 0;
+    var stageStep = 0;
+    var stagePhase = 0;
+    const stages = [
+        {
+            isTip: true,
+            tip: "Нам нужно взломать сервак! Пробиваемся через фаервол! Тапай по экрану, когда видишь правило (круг)",
+            continue: "Готов? Тапни по экрану, чтобы начать тренировку"
+        },
+        {
+            isTip: false,
+            phases: [
+                {end: 8, rndStart: 750, rndEnd: 1250}
+            ]
+        },
+        {
+            isTip: true,
+            tip: "Так, всё! Начинаем взлом! Всё так же: тапай по экрану, когда видишь правило (круг)",
+            continue: "Готов? Тапни по экрану, чтобы начать сам взлом"
+        },
+        {
+            isTip: false,
+            phases: [
+                {end: 28, rndStart: 400, rndEnd: 900},
+                {end: 64, rndStart: 900, rndEnd: 2250},
+                {end: 92, rndStart: 400, rndEnd: 900},
+                {end: 128, rndStart: 900, rndEnd: 2250},
+            ]
+        },
+        {
+            isTip: true,
+            tip: "Черт, нас засекли! Теперь все красные правила ложные! Всё так же: тапай по экрану, когда видишь правило (круг), но только если он не красный! С красным ничего не делай!",
+            continue: "Готов? Тапни по экрану, чтобы продолжить взлом"
+        },
+        {
+            isTip: false,
+            phases: [
+                {end: 28, rndStart: 400, rndEnd: 900},
+                {end: 64, rndStart: 900, rndEnd: 2250},
+                {end: 92, rndStart: 400, rndEnd: 900},
+                {end: 128, rndStart: 900, rndEnd: 2250},
+            ]
+        }
+    ]
+</script>
 </html>
