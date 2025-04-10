@@ -113,6 +113,8 @@
     </div>
  </body> 
  <script>
+    const ELLIPSE_SHOWING = 320;
+    
     var stage = 0;
     var stageStep = 0;
     var stagePhase = 0;
@@ -256,7 +258,7 @@
         (getRandomInt(65535)+1)
 
         curEllipse.style.display = 'block';
-        setTimeout(ellipseHide, 900);
+        setTimeout(ellipseHide, ELLIPSE_SHOWING);
     }
 
     document.getElementById("tapper").addEventListener('click', tap);
